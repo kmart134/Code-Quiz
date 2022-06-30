@@ -1,5 +1,5 @@
 //create quiz questions and choices as arrays
-var questions= [
+var myquestions= [
  {
     title:"Commonly used data types do NOT include:",
     choices: ["strings", "booleans", "alerts", "numbers"],
@@ -27,4 +27,5 @@ var questions= [
 }
 ]
 
-if choices === answer
+
+// if choices === answer
