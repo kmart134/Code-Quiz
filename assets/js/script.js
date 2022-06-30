@@ -4,12 +4,10 @@ var timeEl = document.querySelector("#timer");
 var startBtn = document.getElementById("start");
 var nextBtn = document.getElementById("next");
 var question = document.querySelector(".question");
+var answers = document.querySelector("#answers");
 var option = document.querySelector(".option");
 var questionNumber = 0
-const opt1 = document.getElementById("opt1");
-const opt2 = document.getElementById("opt2");
-const opt3 = document.getElementById("opt3");
-const opt4 = document.getElementById("opt4");
+var secondsLeft;
 
 //create quiz questions and choices as arrays
 var questionList= [
@@ -47,7 +45,7 @@ question.setAttribute("style", "display:none");
 
 // start timer with start button
 startBtn.addEventListener("click", function () {
-    var secondsLeft = 600;
+    secondsLeft = 100;
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timeEl.textContent = secondsLeft + "seconds left!";
@@ -66,52 +64,48 @@ startBtn.addEventListener("click", function () {
     question.setAttribute("style", "display:block");
     //Pop up 1st question
     
-    question.textContent = questionList[questionNumber].title;
-   
-    opt1.innerText = questionList[0].choices[0]
-    opt2.innerText = questionList[0].choices[1]
-    opt3.innerText = questionList[0].choices[2]
-    opt4.innerText = questionList[0].choices[3]
-    
-
-
+    buttonClick();
 });
 
 // //load question, choices
 
 
-nextBtn.addEventListener("click", function () {
+function buttonClick() {
     console.log ("you've clicked next");
-
-
-    for(var i=0; i<questionList.length; i++){
+    answers.innerHTML=""
    
-    question.textContent = questionList[i].title;
-   
-    opt1.innerText = questionList[i].choices[0]
-    opt2.innerText = questionList[i].choices[1]
-    opt3.innerText = questionList[i].choices[2]
-    opt4.innerText = questionList[i].choices[3]
-
+    question.textContent = questionList[questionNumber].title;
+    for ( i=0; i<questionList[questionNumber].choices.length ; i++ ){
+     var answerBtn = document.createElement("button");
+     answerBtn.textContent = questionList[questionNumber].choices[i]
+ 
+     answerBtn.classList.add("option")
+     answerBtn.onclick = questionClick
+     answers.appendChild(answerBtn)
     }
+ 
+        console.log(this.textContent)
+        console.log(questionList[questionNumber].answer)
 
-    
-});
+        console.log(questionNumber)
+};
 
 
 
-
-
-// //check users answer
- if (questionList.choices == questionList.answer) {
-    console.log ("Your answer is correct!")
- }
-else {
-    console.log ("your answer is incorrect")
-    //and deduct time from timer
-    //   --seconds
+function questionClick () {
+    if(this.textContent !== questionList[questionNumber].answer) {
+        secondsLeft -= 15;
+        questionNumber++  
+       }
+       else{
+           secondsLeft += 15;
+           questionNumber++  
+       }
+    buttonClick();
 }
 
+
+// if questionNumber === questionList.length>>>game 
 
 // //retrieve scores Final score
 
