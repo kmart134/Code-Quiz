@@ -2,8 +2,14 @@
 var quizContainer = document.querySelector("quiz-container");
 var timeEl = document.querySelector("#timer");
 var startBtn = document.getElementById("start");
+var nextBtn = document.getElementById("next");
 var question = document.querySelector(".question");
 var option = document.querySelector(".option");
+var questionNumber = 0
+const opt1 = document.getElementById("opt1");
+const opt2 = document.getElementById("opt2");
+const opt3 = document.getElementById("opt3");
+const opt4 = document.getElementById("opt4");
 
 //create quiz questions and choices as arrays
 var questionList= [
@@ -36,6 +42,8 @@ var questionList= [
    
    
    // if choices === answer
+question.setAttribute("style", "display:none");
+
 
 // start timer with start button
 startBtn.addEventListener("click", function () {
@@ -52,84 +60,61 @@ startBtn.addEventListener("click", function () {
     
       }, 1000);    
     console.log ("timer started");
-    
+ 
     //hide start button
     startBtn.setAttribute("style", "display:none");
+    question.setAttribute("style", "display:block");
+    //Pop up 1st question
+    
+    question.textContent = questionList[questionNumber].title;
+   
+    opt1.innerText = questionList[0].choices[0]
+    opt2.innerText = questionList[0].choices[1]
+    opt3.innerText = questionList[0].choices[2]
+    opt4.innerText = questionList[0].choices[3]
+    
 
 
-    var questionNumber = 0
-    question.textContent = questionList[questionNumber].title
-    option.textContent = questionList[questionNumber].choices
 });
-
-
-//Pop up 1st question
 
 // //load question, choices
 
+
+nextBtn.addEventListener("click", function () {
+    console.log ("you've clicked next");
+
+
+    for(var i=0; i<questionList.length; i++){
+   
+    question.textContent = questionList[i].title;
+   
+    opt1.innerText = questionList[i].choices[0]
+    opt2.innerText = questionList[i].choices[1]
+    opt3.innerText = questionList[i].choices[2]
+    opt4.innerText = questionList[i].choices[3]
+
+    }
+
+    
+});
+
+
+
+
+
 // //check users answer
+ if (questionList.choices == questionList.answer) {
+    console.log ("Your answer is correct!")
+ }
+else {
+    console.log ("your answer is incorrect")
+    //and deduct time from timer
+    //   --seconds
+}
+
 
 // //retrieve scores Final score
 
 // //display final score in highscores.html
 
 
-// var currentQuestion = 0;
-// var score = 0;
-// var c = 60;
-// var totquestions = questions.length;
-// var quizContainer = document.getElementById("quiz-container");
-// var questionEl = document.getElementById("question");
-// var opt1 = document.getElementById("opt1");
-// var opt2 = document.getElementById("opt2");
-// var opt3 = document.getElementById("opt3");
-// var opt4 = document.getElementById("opt4");
-// var nextBtn = document.getElementById("next");
-// var subBtn = document.getElementById("submit")
-// var resultContainer = document.getElementById("result")
-// var correctAudio = new Audio("Sounds/correctAnswer.mp3");
-// var startBtn = document.getElementById("start");
-// var subBtn = document.getElementById("submit");
-// var result = document.getElementById("result");
-
-
-// //Load question and choices for user to select.
-// @@ -27,24 +27,23 @@ function loadQuestion (questionIndex){
-// };
-// //Go through all questions, take user option and check if that is the correct answer. If answer is correct add to score, if user is wrong go to next question. If there are not more questions stop clock and display score.
-// function loadNextQuestion(){
-//     //User clicks and checks answer
-//     var userChoice = document.querySelector('input[type=radio]:checked');
-//     //If user does not select an option
-//     if(!userChoice){
-//         alert("Please select answer");
-//         alert("Please select answer.");
-//         return;
-//     }
-//     var answer = userChoice.value;
-//     if(questions[currentQuestion].answer === answer){
-//         score++;
-//         correctAudio.play();
-//         score += 1;
-//     }
-//     userChoice.checked = false;
-//     currentQuestion++;
-
-//     //When user answers the last question  write final score in result element.
-//     if (currentQuestion == totquestions){
-//         document.getElementById("result").innerHTML = score;
-//         startBtn.style.visibility='hidden';
-//         nextBtn.style.visibility='hidden';
-//         quizContainer.style.display="none";
-//         result.style.display="";
-//         result.textContent = score;
-//         return;
-//     }
-//     loadQuestion(currentQuestion);
-// }
-// //Calculate score.
-// // function calcScore(){
-// //     document.getElementById("result").score;
-// //     return;
-// // }
-// //Stopwatch
