@@ -17,6 +17,7 @@ body{
 
 .option{
 display:block;
+display:center;
 }
 
 #stopWatch, #timer {

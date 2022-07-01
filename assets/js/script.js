@@ -48,12 +48,13 @@ startBtn.addEventListener("click", function () {
     secondsLeft = 100;
     var timerInterval = setInterval(function() {
         secondsLeft--;
-        timeEl.textContent = secondsLeft + "seconds left!";
+        timeEl.textContent = secondsLeft + "  seconds left!";
     
-        if(secondsLeft === 0) {
-          // Stops execution of action at set interval
+        if(secondsLeft === 0 || questionNumber == 5) {
+          // stopes timer at 0 or if user finishes quiz
           clearInterval(timerInterval);
-          sendMessage();
+          timeEl.textContent ="Your final score is"+"  " +secondsLeft 
+          question.style.display = "none";
         }
     
       }, 1000);    
@@ -62,31 +63,35 @@ startBtn.addEventListener("click", function () {
     //hide start button
     startBtn.setAttribute("style", "display:none");
     question.setAttribute("style", "display:block");
-    //Pop up 1st question
-    
+
+    //call function to load questions
     buttonClick();
 });
 
-// //load question, choices
 
 
+//load questions, one after the other
 function buttonClick() {
     console.log ("you've clicked next");
     answers.innerHTML=""
    
     question.textContent = questionList[questionNumber].title;
+    
     for ( i=0; i<questionList[questionNumber].choices.length ; i++ ){
+        
+
      var answerBtn = document.createElement("button");
      answerBtn.textContent = questionList[questionNumber].choices[i]
  
      answerBtn.classList.add("option")
      answerBtn.onclick = questionClick
      answers.appendChild(answerBtn)
+        
+        
     }
  
         console.log(this.textContent)
         console.log(questionList[questionNumber].answer)
-
         console.log(questionNumber)
 };
 
@@ -95,19 +100,19 @@ function buttonClick() {
 function questionClick () {
     if(this.textContent !== questionList[questionNumber].answer) {
         secondsLeft -= 15;
+        // alert("wrong, time will be deducted");
         questionNumber++  
        }
        else{
-           secondsLeft += 15;
+        // alert ("good job!")
            questionNumber++  
        }
     buttonClick();
 }
 
 
-// if questionNumber === questionList.length>>>game 
 
-// //retrieve scores Final score
+
 
 // //display final score in highscores.html
 
